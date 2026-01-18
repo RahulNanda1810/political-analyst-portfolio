@@ -1,8 +1,7 @@
 import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import SEO from '../components/SEO'
-import { useAppearances } from '../lib/hooks'
-import { placeholderAppearances } from '../lib/placeholder-data'
+import { useYouTubeVideos } from '../lib/youtube-hooks'
 import { roleLabels } from '../lib/types'
 import type { Appearance } from '../lib/types'
 
@@ -143,12 +142,12 @@ function AppearanceCard({
 }
 
 export default function MediaPage() {
-  const { data: appearances, loading } = useAppearances()
+  const { data: appearances, loading, lastFetched } = useYouTubeVideos()
   const [selectedAppearance, setSelectedAppearance] = useState<Appearance | null>(null)
   const [activeFilter, setActiveFilter] = useState<string>('all')
 
-  // Use placeholder data if CMS data is not available
-  const displayAppearances = appearances.length > 0 ? appearances : placeholderAppearances
+  // Use the fetched data directly (already has fallback built in)
+  const displayAppearances = appearances
 
   // Get unique topics and roles for filtering
   const filters = useMemo(() => {
@@ -189,6 +188,22 @@ export default function MediaPage() {
               Featured appearances across news networks, digital platforms, and policy forums. 
               Select any video to watch the full discussion.
             </p>
+            
+            {/* Auto-sync indicator */}
+            <div className="mt-6 flex items-center gap-2 text-caption text-primary-500">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              <span>
+                {loading ? 'Syncing with YouTube...' : 'Auto-synced with YouTube'}
+                {lastFetched && !loading && (
+                  <span className="ml-2 text-primary-400">
+                    • Last updated {new Date(lastFetched).toLocaleTimeString()}
+                  </span>
+                )}
+              </span>
+            </div>
           </motion.div>
         </div>
       </section>

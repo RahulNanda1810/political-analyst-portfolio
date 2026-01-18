@@ -1,16 +1,17 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import SEO from '../components/SEO'
-import { useRecentAppearances, useSiteSettings } from '../lib/hooks'
-import { placeholderAppearances, placeholderSettings } from '../lib/placeholder-data'
+import { useSiteSettings } from '../lib/hooks'
+import { useYouTubeRecentVideos } from '../lib/youtube-hooks'
+import { placeholderSettings } from '../lib/placeholder-data'
 import { roleLabels } from '../lib/types'
 
 export default function HomePage() {
-  const { data: appearances, loading: appearancesLoading } = useRecentAppearances()
+  const { data: appearances, loading: appearancesLoading } = useYouTubeRecentVideos()
   const { data: settings, loading: settingsLoading } = useSiteSettings()
 
-  // Use placeholder data if CMS data is not available
-  const displayAppearances = appearances.length > 0 ? appearances : placeholderAppearances.slice(0, 3)
+  // Use fetched data (already has fallback built in)
+  const displayAppearances = appearances
   const displaySettings = settings || placeholderSettings
 
   return (
