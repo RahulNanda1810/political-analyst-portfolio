@@ -279,6 +279,6 @@ export const placeholderSettings: SiteSettings = {
   ],
   socialLinks: {
     twitter: 'https://twitter.com/nandakumark',
-    linkedin: 'https://linkedin.com/in/nandakumar-kathirvel-55613056',
+    linkedin: 'https://www.linkedin.com/in/nandakumar-kathirvel-55613056/',
   },
 }

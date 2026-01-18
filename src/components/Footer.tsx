@@ -102,7 +102,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/nandakumar-kathirvel-55613056/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary-500 hover:text-accent transition-colors"
